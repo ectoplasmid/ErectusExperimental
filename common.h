@@ -48,7 +48,6 @@ constexpr auto OFFSET_DATA_HANDLER = 0x05121B00UL;//1.5.0.19
 constexpr auto OFFSET_INFINITE_AMMO = 0x00D50016UL;//1.5.0.19
 
 //remote threads / message sending
-
 constexpr auto OFFSET_MELEE_ATTACK = 0x016FEC40UL;//1.5.0.19
 constexpr auto OFFSET_MESSAGE_SENDER = 0x0151F590UL;//1.5.0.19
 constexpr auto OFFSET_FAKE_MESSAGE = 0x014A7B20UL;//1.5.0.19
