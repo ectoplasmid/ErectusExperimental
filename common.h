@@ -10,13 +10,13 @@ constexpr LPCSTR OVERLAY_WINDOW_NAME = "Er";
 //offsets
 
 //just rpm
-constexpr auto OFFSET_LOCAL_PLAYER = 0x05344D90UL;//1.5.0.19
-constexpr auto OFFSET_ENTITY_LIST = 0x51253D8UL;//1.5.0.19
-constexpr auto OFFSET_MAIN = 0x053A5100UL;//1.5.0.19
-constexpr auto OFFSET_CAMERA = 0x06346BD0UL;//1.5.0.19
-constexpr auto OFFSET_GET_PTR_A1 = 0x0512C3D8UL;//1.5.0.19
+constexpr auto OFFSET_LOCAL_PLAYER = 0x0547E598UL;//1.5.1.3
+constexpr auto OFFSET_ENTITY_LIST = 0x05246EA8UL;//1.5.1.3
+constexpr auto OFFSET_MAIN = 0x054D5CD8UL;//1.5.1.3
+constexpr auto OFFSET_CAMERA = 0x0647E7E0UL;//1.5.1.3
+constexpr auto OFFSET_GET_PTR_A1 = 0x0524D848UL;//1.5.1.3
 constexpr auto OFFSET_GET_PTR_A2 = 0x03C8F9D0UL;//1.5.0.19
-constexpr auto OFFSET_NUKE_CODE = 0x05262868UL;//1.5.0.19
+constexpr auto OFFSET_NUKE_CODE = 0x053889C8UL;//1.5.1.3
 constexpr auto OFFSET_MAIN_WORLDSPACE = 0x052613A0UL;//1.5.0.19
 
 //wpm
@@ -30,14 +30,14 @@ constexpr auto OFFSET_REDIRECTION_JMP = 0x0186C0BBUL;//1.5.0.19
 
 //stats editor
 constexpr auto OFFSET_ACTOR_VALUE = 0x016F4E10UL;//1.5.0.19
-constexpr auto OFFSET_AV_REGEN = 0x016F51CFUL;//1.5.0.19
-constexpr auto OFFSET_SERVER_POSITION = 0x0150DA25UL;//1.5.0.19
+constexpr auto OFFSET_AV_REGEN = 0x0178CCBFUL;//1.5.1.3
+constexpr auto OFFSET_SERVER_POSITION = 0x015A4446UL;//1.5.1.3
 
 //opk
 constexpr auto OFFSET_OPK = 0x029E188DUL;//1.5.0.19
 
 //noclip
-constexpr auto OFFSET_CHAR_CONTROLLER = 0x05595560UL;//1.5.0.19
+constexpr auto OFFSET_CHAR_CONTROLLER = 0x056CCB60UL;//1.5.1.3
 constexpr auto OFFSET_NOCLIP_A = 0x029D4178UL;//1.5.0.19
 constexpr auto OFFSET_NOCLIP_B = 0x029D4130UL;//1.5.0.19
 constexpr auto OFFSET_NOCLIP_C = 0x01672411UL;//1.5.0.19
