@@ -10,54 +10,54 @@ constexpr LPCSTR OVERLAY_WINDOW_NAME = "Er";
 //offsets
 
 //just rpm
-constexpr auto OFFSET_LOCAL_PLAYER = 0x0547E598UL;//1.5.1.3
-constexpr auto OFFSET_ENTITY_LIST = 0x05246EA8UL;//1.5.1.3
-constexpr auto OFFSET_MAIN = 0x054D5CD8UL;//1.5.1.3
-constexpr auto OFFSET_CAMERA = 0x0647E7E0UL;//1.5.1.3
-constexpr auto OFFSET_GET_PTR_A1 = 0x0524D848UL;//1.5.1.3
-constexpr auto OFFSET_GET_PTR_A2 = 0x03C8F9D0UL;//1.5.0.19
-constexpr auto OFFSET_NUKE_CODE = 0x053889C8UL;//1.5.1.3
-constexpr auto OFFSET_MAIN_WORLDSPACE = 0x052613A0UL;//1.5.0.19
+constexpr auto OFFSET_LOCAL_PLAYER = 0x5475498UL;//1.5.1.3  
+constexpr auto OFFSET_ENTITY_LIST = 0x5246EA8UL;//1.5.1.3  
+constexpr auto OFFSET_MAIN = 0x54D5CD8UL;//1.5.1.3
+constexpr auto OFFSET_CAMERA = 0x647E7E0UL;//1.5.1.3 
+constexpr auto OFFSET_GET_PTR_A1 = 0x524D848UL;//1.5.1.3 
+constexpr auto OFFSET_GET_PTR_A2 = 0x3D98670UL;//1.5.1.3  
+constexpr auto OFFSET_NUKE_CODE = 0x053889C8UL;//1.5.1.3 
+constexpr auto OFFSET_MAIN_WORLDSPACE = 0x5387480UL;//1.5.1.3
 
 //wpm
 
 //chargen
-constexpr auto OFFSET_CHARGEN = 0x05347280UL;//1.5.0.19
+constexpr auto OFFSET_CHARGEN = 0x05347280UL;//1.5.0.19-not updated
 
 //dmg redirection
-constexpr auto OFFSET_REDIRECTION = 0x0186C22BUL;//1.5.0.19
-constexpr auto OFFSET_REDIRECTION_JMP = 0x0186C0BBUL;//1.5.0.19
+constexpr auto OFFSET_REDIRECTION = 0x190485BUL;//1.5.1.3  
+constexpr auto OFFSET_REDIRECTION_JMP = 0x19046EBUL;//1.5.1.3
 
-//stats editor
-constexpr auto OFFSET_ACTOR_VALUE = 0x016F4E10UL;//1.5.0.19
-constexpr auto OFFSET_AV_REGEN = 0x0178CCBFUL;//1.5.1.3
-constexpr auto OFFSET_SERVER_POSITION = 0x015A4446UL;//1.5.1.3
+//stats editor 
+constexpr auto OFFSET_ACTOR_VALUE = 0x178C900UL;//1.5.1.3 
+constexpr auto OFFSET_AV_REGEN = 0x178CCBFUL;//1.5.1.3   
+constexpr auto OFFSET_SERVER_POSITION = 0x15A4435UL;//1.5.1.3
 
 //opk
-constexpr auto OFFSET_OPK = 0x029E188DUL;//1.5.0.19
+constexpr auto OFFSET_OPK = 0x2A7CAADUL;//1.5.1.3
 
 //noclip
-constexpr auto OFFSET_CHAR_CONTROLLER = 0x056CCB60UL;//1.5.1.3
-constexpr auto OFFSET_NOCLIP_A = 0x029D4178UL;//1.5.0.19
-constexpr auto OFFSET_NOCLIP_B = 0x029D4130UL;//1.5.0.19
-constexpr auto OFFSET_NOCLIP_C = 0x01672411UL;//1.5.0.19
-constexpr auto OFFSET_NOCLIP_D = 0x01672441UL;//1.5.0.19
+constexpr auto OFFSET_CHAR_CONTROLLER = 0x56CCB60UL;//1.5.1.3 
+constexpr auto OFFSET_NOCLIP_A = 0x2A6F398UL;//1.5.1.3  
+constexpr auto OFFSET_NOCLIP_B = 0x2A6F350UL;//1.5.1.3 
+constexpr auto OFFSET_NOCLIP_C = 0x1709AB1UL;//1.5.1.3 
+constexpr auto OFFSET_NOCLIP_D = 0x1709AE1UL;//1.5.1.3
 
 //weapon editor
-constexpr auto OFFSET_DATA_HANDLER = 0x05121B00UL;//1.5.0.19
-constexpr auto OFFSET_INFINITE_AMMO = 0x00D50016UL;//1.5.0.19
+constexpr auto OFFSET_DATA_HANDLER = 0x52425C8UL;//1.5.1.3 
+constexpr auto OFFSET_INFINITE_AMMO = 0xDE3316UL;//1.5.1.3
 
 //remote threads / message sending
-constexpr auto OFFSET_MELEE_ATTACK = 0x016FEC40UL;//1.5.0.19
-constexpr auto OFFSET_MESSAGE_SENDER = 0x0151F590UL;//1.5.0.19
-constexpr auto OFFSET_FAKE_MESSAGE = 0x014A7B20UL;//1.5.0.19
+constexpr auto OFFSET_MELEE_ATTACK = 0x1796760UL;//1.5.1.3 
+constexpr auto OFFSET_MESSAGE_SENDER = 0x15B6120UL;//1.5.1.3 
+constexpr auto OFFSET_FAKE_MESSAGE = 0x153DC30UL;//1.5.1.3
 
 //vtables
-constexpr auto VTABLE_REQUESTACTIVATEREFMSG = 0x03AF0BB0UL;//1.5.0.19
-constexpr auto VTABLE_REQUESTTRANSFERITEMMSG = 0x03AFEF78UL;//1.5.0.19
-constexpr auto VTABLE_REQUESTTELEPORTTOLOCATIONMSG = 0x03AF4A60UL;//1.5.0.19
-constexpr auto VTABLE_CLIENTSTATEMSG = 0x03AF4640UL;//1.5.0.19
-constexpr auto VTABLE_REQUESTHITSONACTORS = 0x03AF09F8UL;//1.5.0.19
+constexpr auto VTABLE_REQUESTACTIVATEREFMSG = 0x3BF22C0UL;//1.5.1.3 
+constexpr auto VTABLE_REQUESTTRANSFERITEMMSG = 0x3C006B8UL;//1.5.1.3 
+constexpr auto VTABLE_REQUESTTELEPORTTOLOCATIONMSG = 0x3BF6170UL;//1.5.1.3
+constexpr auto VTABLE_CLIENTSTATEMSG = 0x3BF5D50UL;//1.5.1.3  
+constexpr auto VTABLE_REQUESTHITSONACTORS = 0x3BF2108UL;//1.5.1.3
 
 enum class HotKey : int
 {
