@@ -1543,23 +1543,23 @@ std::uintptr_t ErectusMemory::GetNukeCodePtr(const std::uint32_t formId)
 std::array<int, 8> ErectusMemory::GetNukeCode(const std::uint32_t formId)
 {
 	std::array<int, 8> result = {};
-	
+ 
 	const auto nukeCodePtr = GetNukeCodePtr(formId);
 	if (!nukeCodePtr)
 		return result;
-
-	float nukeCodeArray[16];
+ 
+	float nukeCodeArray[24];
 	if (!ErectusProcess::Rpm(nukeCodePtr, &nukeCodeArray, sizeof nukeCodeArray))
 		return result;
-
+ 
 	for (std::size_t i = 0; i < 8; i++)
 	{
-		if (nukeCodeArray[i * 2 + 1] < 0.0f || nukeCodeArray[i * 2 + 1] > 9.0f)
+		if (nukeCodeArray[i * 3 + 1] < 0.0f || nukeCodeArray[i * 3 + 1] > 9.0f)
 		{
 			result = {};
 			return result;
 		}
-		result[i] = static_cast<int>(nukeCodeArray[i * 2 + 1]);
+		result[i] = static_cast<int>(nukeCodeArray[i * 3 + 1]);
 	}
 	return result;
 }
