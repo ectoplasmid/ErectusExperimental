@@ -10,13 +10,13 @@ constexpr LPCSTR OVERLAY_WINDOW_NAME = "Er";
 //offsets
 
 //just rpm
-constexpr auto OFFSET_LOCAL_PLAYER = 0x5475498UL;//1.5.1.3  
-constexpr auto OFFSET_ENTITY_LIST = 0x5246EA8UL;//1.5.1.3  
-constexpr auto OFFSET_MAIN = 0x54D5CD8UL;//1.5.1.3
-constexpr auto OFFSET_CAMERA = 0x647E7E0UL;//1.5.1.3 
-constexpr auto OFFSET_GET_PTR_A1 = 0x524D848UL;//1.5.1.3 
+constexpr auto OFFSET_LOCAL_PLAYER = 0x05493000UL//1.5.1.26  
+constexpr auto OFFSET_ENTITY_LIST = 0x0525ED98UL//1.5.1.26  
+constexpr auto OFFSET_MAIN = 0x054EC050UL//1.5.1.26
+constexpr auto OFFSET_CAMERA = 0x0647AED0UL//1.5.1.26 
+constexpr auto OFFSET_GET_PTR_A1 = 0x05265E78UL//1.5.1.26 
 constexpr auto OFFSET_GET_PTR_A2 = 0x3D98670UL;//1.5.1.3  
-constexpr auto OFFSET_NUKE_CODE = 0x053889C8UL;//1.5.1.3 
+constexpr auto OFFSET_NUKE_CODE = 0x0539F368UL//1.5.1.26 
 constexpr auto OFFSET_MAIN_WORLDSPACE = 0x5387480UL;//1.5.1.3
 
 //wpm
@@ -25,16 +25,16 @@ constexpr auto OFFSET_MAIN_WORLDSPACE = 0x5387480UL;//1.5.1.3
 constexpr auto OFFSET_CHARGEN = 0x05347280UL;//1.5.0.19-not updated
 
 //dmg redirection
-constexpr auto OFFSET_REDIRECTION = 0x190485BUL;//1.5.1.3  
-constexpr auto OFFSET_REDIRECTION_JMP = 0x19046EBUL;//1.5.1.3
+constexpr auto OFFSET_REDIRECTION = 0x194027BUL; //1.5.1.26
+constexpr auto OFFSET_REDIRECTION_JMP = 0x194010BUL; //1.5.1.26
 
 //stats editor 
-constexpr auto OFFSET_ACTOR_VALUE = 0x178C900UL;//1.5.1.3 
-constexpr auto OFFSET_AV_REGEN = 0x178CCBFUL;//1.5.1.3   
-constexpr auto OFFSET_SERVER_POSITION = 0x15A4435UL;//1.5.1.3
+constexpr auto OFFSET_ACTOR_VALUE = 0x017C8770UL;//1.5.0.26 
+constexpr auto OFFSET_AV_REGEN = 0x017C8B2FUL;//1.5.0.26   
+constexpr auto OFFSET_SERVER_POSITION = 0x15E0075UL;//1.5.0.26
 
 //opk
-constexpr auto OFFSET_OPK = 0x2A7CAADUL;//1.5.1.3
+constexpr auto OFFSET_OPK = 0x2A7CAADULUL;//1.5.1.3
 
 //noclip
 constexpr auto OFFSET_CHAR_CONTROLLER = 0x56CCB60UL;//1.5.1.3 
@@ -45,7 +45,7 @@ constexpr auto OFFSET_NOCLIP_D = 0x1709AE1UL;//1.5.1.3
 
 //weapon editor
 constexpr auto OFFSET_DATA_HANDLER = 0x52425C8UL;//1.5.1.3 
-constexpr auto OFFSET_INFINITE_AMMO = 0xDE3316UL;//1.5.1.3
+constexpr auto OFFSET_INFINITE_AMMO = 0x00E1CB06UL;//1.5.0.26
 
 //remote threads / message sending
 constexpr auto OFFSET_MELEE_ATTACK = 0x1796760UL;//1.5.1.3 
