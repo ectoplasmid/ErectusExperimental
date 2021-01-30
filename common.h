@@ -45,7 +45,7 @@ constexpr auto OFFSET_NOCLIP_D = 0x1709AE1UL;//1.5.1.3
 
 //weapon editor
 constexpr auto OFFSET_DATA_HANDLER = 0x52425C8UL;//1.5.1.3 
-constexpr auto OFFSET_INFINITE_AMMO = 0x00E1CB06UL;//1.5.0.26
+constexpr auto OFFSET_INFINITE_AMMO = 0x00E1CB06;//1.5.0.26
 
 //remote threads / message sending
 constexpr auto OFFSET_MELEE_ATTACK = 0x1796760UL;//1.5.1.3 
