@@ -10,7 +10,7 @@ constexpr LPCSTR OVERLAY_WINDOW_NAME = "Er";
 //offsets
 
 //just rpm
-constexpr auto OFFSET_LOCAL_PLAYER = 0x05493000UL//1.5.1.26  
+constexpr auto OFFSET_LOCAL_PLAYER = 0x05489F78UL//1.5.1.26  
 constexpr auto OFFSET_ENTITY_LIST = 0x0525ED98UL//1.5.1.26  
 constexpr auto OFFSET_MAIN = 0x054EC050UL//1.5.1.26
 constexpr auto OFFSET_CAMERA = 0x0647AED0UL//1.5.1.26 
