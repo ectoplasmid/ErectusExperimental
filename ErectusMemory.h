@@ -207,26 +207,41 @@ public:
 class Hits
 {
 public:
-	std::uint32_t valueA;//0x0 (Local Player)
-	std::uint32_t valueB;//0x4 (Entity)
-	std::uint32_t valueC;//0x8 (Projectile == 0)
-	std::uint32_t initializationType;//0xC (3 == Default/Gun, 4 == Explosive)
-	std::uint32_t uiWeaponServerId;//0x10
-	std::uint32_t limbEnum;//0x20 (0xFFFFFFFF == Default/Body)
-	std::uint32_t hitEffectId;//0x18 (0 == Default/Gun)
-	std::uint32_t uEquipIndex;//0x1C (0 == Default/Gun)
-	BYTE uAckIndex;//0x20 (Shots Hit, Always > 0)
-	BYTE uFireId;//0x21 (Shots Fired)
-	BYTE bPredictedKill;//0x22
-	char padding0023;//0x23 (0)
-	float explosionLocationX;//0x24
-	float explosionLocationY;//0x28
-	float explosionLocationZ;//0x2C
-	float fProjectilePower;//0x30 (1.0f == Default)
-	BYTE bVatsAttack;//0x34
-	BYTE bVatsCritical;//0x35
-	BYTE bTargetWasDead;//0x36
-	char padding0037;//0x37 (0)
+	//std::uint32_t valueA;//0x0 (Local Player)
+	//std::uint32_t valueB;//0x4 (Entity)
+	//std::uint32_t valueC;//0x8 (Projectile == 0)
+	//std::uint32_t initializationType;//0xC (3 == Default/Gun, 4 == Explosive)
+	//std::uint32_t uiWeaponServerId;//0x10
+	//std::uint32_t limbEnum;//0x20 (0xFFFFFFFF == Default/Body)
+	//std::uint32_t hitEffectId;//0x18 (0 == Default/Gun)
+	//std::uint32_t uEquipIndex;//0x1C (0 == Default/Gun)
+	//BYTE uAckIndex;//0x20 (Shots Hit, Always > 0)
+	//BYTE uFireId;//0x21 (Shots Fired)
+	//BYTE bPredictedKill;//0x22
+	//char padding0023;//0x23 (0)
+	//float explosionLocationX;//0x24
+	//float explosionLocationY;//0x28
+	//float explosionLocationZ;//0x2C
+	//float fProjectilePower;//0x30 (1.0f == Default)
+	//BYTE bVatsAttack;//0x34
+	//BYTE bVatsCritical;//0x35
+	//BYTE bTargetWasDead;//0x36
+	//char padding0037;//0x37 (0)
+
+	char pad_0000[4]; //0x0000
+	uint32_t target; //0x0004
+	uint32_t projectile; //0x0008 can be 0
+	uint32_t source; //0x000C
+	char pad_0010[8]; //0x0010
+	uint8_t uAckIndex; //0x0018
+	uint8_t uFireId; //0x0019
+	char pad_001A[2]; //0x001A
+	uint32_t initializationType; //0x001C
+	uint32_t uiWeaponServerId; //0x0020
+	uint32_t limbEnum; //0x0024
+	char pad_0028[12]; //0x0028
+	float fProjectilePower; //0x0034
+	char pad_0038[4]; //0x0038
 };
 
 class RequestTeleportMessage
@@ -236,6 +251,7 @@ public:
 	Vector3 position;//0x8
 	Vector3 rotation;//0x14
 	std::uintptr_t cellPtr;//0x20
+	BYTE unk;
 };
 
 class ClientStateMsg
@@ -244,6 +260,15 @@ public:
 	std::uintptr_t vtable;//0x0
 	std::uintptr_t clientState;//0x8
 };
+
+class RequestInventorySyncMsg
+{
+public:
+	uintptr_t vtable; //0x0000
+	uint32_t targetFormId; //0x0008
+	uint8_t unk; //0x000C == 1?
+}; //Size: 0x000D
+
 
 class Chargen
 {
@@ -442,6 +467,9 @@ public:
 	static bool    CheckFormIdArray(std::uint32_t formId, const bool* enabledArray, const std::uint32_t* formIdArray, int size);
 	static std::uintptr_t RttiGetNamePtr(std::uintptr_t vtable);
 	static bool    VtableSwap(std::uintptr_t dst, std::uintptr_t src);
+
+	static bool PatchIntegrityCheck();
+	static bool PatchDetectFlag();
 
 	static ItemInfo GetItemInfo(const TesObjectRefr& entity);
 	static std::string GetEntityName(std::uintptr_t ptr);

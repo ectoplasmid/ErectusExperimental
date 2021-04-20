@@ -18,6 +18,7 @@ void ErectusProcess::SetProcessError(const int errorId, const char* error)
 
 void ErectusProcess::ResetProcessData()
 {
+	if(processErrorId!=2)
 	SetProcessError(0, "Process State: No process selected");
 
 	if (Threads::threadCreationState)
@@ -184,7 +185,10 @@ bool ErectusProcess::AttachToProcess(const DWORD processId)
 	ResetProcessData();
 
 	if (processId == 0)
+	{
+		SetProcessError(2, "Process State: ProcessID invalid");
 		return false;
+	}
 
 	pid = processId;
 

@@ -11,9 +11,9 @@
 #include "Window.hpp"
 #include "features/Looter.h"
 
-App::App(const HINSTANCE hInstance, const LPCSTR windowTitle) : appInstance(hInstance)
+App::App(const HINSTANCE hInstance) : appInstance(hInstance)
 {
-	Init(windowTitle);
+	Init();
 }
 
 App::~App()
@@ -23,9 +23,9 @@ App::~App()
 	Settings::Write();
 }
 
-void App::Init(LPCSTR windowTitle)
+void App::Init()
 {
-	appWindow = std::make_unique<Window>(this, windowTitle);
+	appWindow = std::make_unique<Window>(this, GenRandWindowName());
 
 	if (!Renderer::Init(appWindow->GetHwnd()))
 		return;
@@ -247,4 +247,10 @@ bool App::SnapToWindow(const HWND hwnd) const
 	appWindow->SetPosition(targetClientRect.left, targetClientRect.top);
 
 	return true;
+}
+
+const char* App::GenRandWindowName()
+{
+	static auto name = Utils::RandomString(10);
+	return name.c_str();
 }

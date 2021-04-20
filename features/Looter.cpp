@@ -197,6 +197,15 @@ bool Looter::LootContainer(const ItemInfo& item, const LocalPlayer& player)
 			return false;
 		if (!ContainerValid(item.base))
 			return false;
+		if (!Utils::Valid(item.refr.inventoryPtr)) {
+			RequestInventorySyncMsg syncMsg = {
+				.vtable = ErectusProcess::exe + VTABLE_REQUESTINVENTORYSYNCMSG,
+				.targetFormId = item.refr.formId,
+				.unk = 1
+			};
+			MsgSender::Send(&syncMsg, sizeof syncMsg);
+			return false;
+		}
 		break;
 
 	default:
@@ -204,6 +213,7 @@ bool Looter::LootContainer(const ItemInfo& item, const LocalPlayer& player)
 	}
 
 	auto inventory = item.refr.GetInventory();
+	if (!inventory.size())return false;
 	
 	for (const auto& inventoryEntry : inventory)
 	{

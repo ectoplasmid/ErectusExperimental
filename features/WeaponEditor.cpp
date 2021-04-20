@@ -21,7 +21,7 @@ void WeaponEditor::EditWeapons(bool enabled)
 		return;
 
 	ReferenceList weaponList{};
-	if (!ErectusProcess::Rpm(dataHandlerPtr + 0x598, &weaponList, sizeof weaponList))
+	if (!ErectusProcess::Rpm(dataHandlerPtr + 0x5b0, &weaponList, sizeof weaponList))
 		return;
 	if (!Utils::Valid(weaponList.arrayPtr) || !weaponList.arraySize || weaponList.arraySize > 0x7FFF)
 		return;
@@ -104,8 +104,8 @@ void WeaponEditor::ResetWeapons()
 
 bool WeaponEditor::InfiniteAmmo(const bool enabled)
 {
-	BYTE infiniteAmmoOn[] = { 0x66, 0xB8, 0xE7, 0x03 };
-	BYTE infiniteAmmoOff[] = { 0x8B, 0x44, 0x24, 0x50 };
+	BYTE infiniteAmmoOn[] = { 0xB8, 0xE7, 0x03, 0x00, 0x00, 0xC3, 0xCC, 0xCC, 0xCC };
+	BYTE infiniteAmmoOff[] = { 0x48, 0x83, 0xEC, 0x38, 0x48, 0x8D, 0x44, 0x24, 0x50 };
 	BYTE infiniteAmmoCheck[sizeof infiniteAmmoOff];
 
 	if (!ErectusProcess::Rpm(ErectusProcess::exe + OFFSET_INFINITE_AMMO, &infiniteAmmoCheck, sizeof infiniteAmmoCheck))

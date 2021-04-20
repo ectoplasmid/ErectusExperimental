@@ -15,5 +15,6 @@ public:
 	Vector3 origin;//0xA0
 	char padding00Ac[0x84]{};
 	float viewMatrix[4][4]{};//0x130
+
 };
 

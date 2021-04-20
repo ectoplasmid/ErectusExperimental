@@ -199,10 +199,7 @@ DWORD WINAPI Threads::MultihackThread([[maybe_unused]] LPVOID lpParameter)
 	{
 		loopCount = (loopCount + 1) % 30000;
 
-		if (positionSpoofingToggle && Settings::localPlayer.positionSpoofingEnabled && Settings::localPlayer.clientState)
-			ErectusMemory::SetClientState(2);
-
-		if (noclipToggle && Settings::localPlayer.noclipEnabled && Settings::localPlayer.clientState)
+		if ((positionSpoofingToggle && Settings::localPlayer.positionSpoofingEnabled || noclipToggle && Settings::localPlayer.noclipEnabled) && Settings::localPlayer.clientState)
 			ErectusMemory::SetClientState(2);
 
 		ErectusMemory::PositionSpoofing(positionSpoofingToggle);
@@ -285,6 +282,9 @@ bool Threads::CreateProcessThreads()
 
 	if (threadDestructionCounter)
 		return false;
+
+	ErectusMemory::PatchIntegrityCheck();
+	ErectusMemory::PatchDetectFlag();
 
 	if (!bufferEntityListThreadActive)
 	{

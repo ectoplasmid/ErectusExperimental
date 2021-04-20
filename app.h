@@ -15,7 +15,7 @@ public:
 		Overlay
 	};
 
-	App(HINSTANCE hInstance, LPCSTR windowTitle);
+	App(HINSTANCE hInstance);
 	~App();
 	[[nodiscard]] const HINSTANCE& GetAppInstance() const { return appInstance; }
 
@@ -40,11 +40,13 @@ private:
 	void UnRegisterHotkeys() const;
 	void OnHotkey(HotKey hotkey);
 
-	void Init(LPCSTR windowTitle);
+	void Init();
 
 	void Update();
 	void Render() const;
 	bool SnapToWindow(HWND hwnd) const;
+
+	const char* GenRandWindowName();
 
 	const HINSTANCE appInstance;
 

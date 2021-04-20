@@ -4,60 +4,62 @@
 
 #include <Windows.h>
 
-//overlay
-constexpr LPCSTR OVERLAY_WINDOW_NAME = "Er";
-
-//offsets
-
+//FileVersion = 1.5.1.26
 //just rpm
-constexpr auto OFFSET_LOCAL_PLAYER = 0x05489F78UL//1.5.1.26  
-constexpr auto OFFSET_ENTITY_LIST = 0x0525ED98UL//1.5.1.26  
-constexpr auto OFFSET_MAIN = 0x054EC050UL//1.5.1.26
-constexpr auto OFFSET_CAMERA = 0x0647AED0UL//1.5.1.26 
-constexpr auto OFFSET_GET_PTR_A1 = 0x05265E78UL//1.5.1.26 
-constexpr auto OFFSET_GET_PTR_A2 = 0x3D98670UL;//1.5.1.3  
-constexpr auto OFFSET_NUKE_CODE = 0x0539F368UL//1.5.1.26 
-constexpr auto OFFSET_MAIN_WORLDSPACE = 0x5387480UL;//1.5.1.3
+constexpr auto OFFSET_LOCAL_PLAYER = 0x05489f78UL;//
+constexpr auto OFFSET_ENTITY_LIST = 0x0525ED98UL;//
+constexpr auto OFFSET_MAIN = 0x054EC050UL;//
+constexpr auto OFFSET_CAMERA = 0x0647AED0UL;//
+constexpr auto OFFSET_GET_PTR_A1 = 0x05265E78UL;//
+constexpr auto OFFSET_GET_PTR_A2 = 0x3DB6C20UL;//  
+constexpr auto OFFSET_NUKE_CODE = 0x0539F368UL;// 
+constexpr auto OFFSET_MAIN_WORLDSPACE = 0x539DE60UL;//
+constexpr auto OFFSET_ENTITY_ID = 0x05255380UL;// 
 
 //wpm
 
+//anticheat
+constexpr auto OFFSET_INTEGRITYCHECK = 0x664C7A0UL;
+constexpr auto OFFSET_FLAGDETECTED = 0x5A50E6UL;
+
 //chargen
-constexpr auto OFFSET_CHARGEN = 0x05347280UL;//1.5.0.19-not updated
+constexpr auto OFFSET_CHARGEN = 0x548C840UL + 0x100;//
 
 //dmg redirection
-constexpr auto OFFSET_REDIRECTION = 0x194027BUL; //1.5.1.26
-constexpr auto OFFSET_REDIRECTION_JMP = 0x194010BUL; //1.5.1.26
+constexpr auto OFFSET_REDIRECTION = 0x194027BUL; //
+constexpr auto OFFSET_REDIRECTION_JMP = 0x194010BUL; //
 
 //stats editor 
-constexpr auto OFFSET_ACTOR_VALUE = 0x017C8770UL;//1.5.0.26 
-constexpr auto OFFSET_AV_REGEN = 0x017C8B2FUL;//1.5.0.26   
-constexpr auto OFFSET_SERVER_POSITION = 0x15E0075UL;//1.5.0.26
+constexpr auto OFFSET_ACTOR_VALUE = 0x017C8770UL;//
+constexpr auto OFFSET_AV_REGEN = 0x017C8B2FUL;//
+constexpr auto OFFSET_SERVER_POSITION = 0x015E0075UL;//
 
 //opk
-constexpr auto OFFSET_OPK = 0x2A7CAADULUL;//1.5.1.3
+constexpr auto OFFSET_OPK = 0x2AB1EFDUL;//
 
 //noclip
-constexpr auto OFFSET_CHAR_CONTROLLER = 0x56CCB60UL;//1.5.1.3 
-constexpr auto OFFSET_NOCLIP_A = 0x2A6F398UL;//1.5.1.3  
-constexpr auto OFFSET_NOCLIP_B = 0x2A6F350UL;//1.5.1.3 
-constexpr auto OFFSET_NOCLIP_C = 0x1709AB1UL;//1.5.1.3 
-constexpr auto OFFSET_NOCLIP_D = 0x1709AE1UL;//1.5.1.3
+constexpr auto OFFSET_CHAR_CONTROLLER = 0x56C84C0UL;//
+constexpr auto OFFSET_NOCLIP_A = 0x2AA46C8UL; // 
+constexpr auto OFFSET_NOCLIP_B = 0x2AA4680UL; // 
+constexpr auto OFFSET_NOCLIP_C = 0x17458F1UL; // 
+constexpr auto OFFSET_NOCLIP_D = 0x1745921UL; //
 
 //weapon editor
-constexpr auto OFFSET_DATA_HANDLER = 0x52425C8UL;//1.5.1.3 
-constexpr auto OFFSET_INFINITE_AMMO = 0x00E1CB06;//1.5.0.26
+constexpr auto OFFSET_DATA_HANDLER = 0x525AF98UL; //
+constexpr auto OFFSET_INFINITE_AMMO = 0x00E1CAD0UL; //48 83 EC 38 48 8D 44 24 50 C7 44 24 50 00 00 00 00
 
 //remote threads / message sending
-constexpr auto OFFSET_MELEE_ATTACK = 0x1796760UL;//1.5.1.3 
-constexpr auto OFFSET_MESSAGE_SENDER = 0x15B6120UL;//1.5.1.3 
-constexpr auto OFFSET_FAKE_MESSAGE = 0x153DC30UL;//1.5.1.3
+constexpr auto OFFSET_MELEE_ATTACK = 0x17D24E0UL;//
+constexpr auto OFFSET_MESSAGE_SENDER = 0x15F18C0UL;//
+constexpr auto OFFSET_FAKE_MESSAGE = 0x1579180UL;//
 
 //vtables
-constexpr auto VTABLE_REQUESTACTIVATEREFMSG = 0x3BF22C0UL;//1.5.1.3 
-constexpr auto VTABLE_REQUESTTRANSFERITEMMSG = 0x3C006B8UL;//1.5.1.3 
-constexpr auto VTABLE_REQUESTTELEPORTTOLOCATIONMSG = 0x3BF6170UL;//1.5.1.3
-constexpr auto VTABLE_CLIENTSTATEMSG = 0x3BF5D50UL;//1.5.1.3  
-constexpr auto VTABLE_REQUESTHITSONACTORS = 0x3BF2108UL;//1.5.1.3
+constexpr auto VTABLE_REQUESTACTIVATEREFMSG = 0x3C11E60UL;//
+constexpr auto VTABLE_REQUESTTRANSFERITEMMSG = 0x3C202D0UL;//
+constexpr auto VTABLE_REQUESTTELEPORTTOLOCATIONMSG = 0x3C15D10UL;//
+constexpr auto VTABLE_CLIENTSTATEMSG = 0x3C158F0UL;//
+constexpr auto VTABLE_REQUESTHITSONACTORS = 0x3C11CA8UL;//
+constexpr auto VTABLE_REQUESTINVENTORYSYNCMSG = 0x3AE93E0UL;//
 
 enum class HotKey : int
 {
@@ -293,29 +295,29 @@ enum class FormType : std::uint8_t
 	BgsTextureSet = 0x10,
 	TesSound = 0x19,
 	BgsAcousticSpace = 0x1B,
-	TesObjectArmo = 0x26,
-	TesObjectBook = 0x27,
-	TesObjectCont = 0x28,
-	TesObjectLigh = 0x2B,
-	TesObjectMisc = 0x2C,
-	CurrencyObject = 0x2F,
-	TesObjectStat = 0x30,
-	BgsStaticCollection = 0x31,
-	BgsMovableStatic = 0x32,
-	TesFlora = 0x35,
-	TesObjectWeap = 0x37,
-	TesAmmo = 0x38,
-	TesNpc = 0x39,
-	TesKey = 0x3C,
-	AlchemyItem = 0x3D,
-	TesUtilityItem = 0x3E,
-	BgsIdleMarker = 0x3F,
-	BgsNote = 0x40,
-	BgsBendableSpline = 0x43,
-	TesLevItem = 0x48,
-	TesObjectRefr = 0x50,  //used in REFR objects, ref to item
-	TesActor = 0x51, //used in REFR objects, ref to npc
-	PlayerCharacter = 0xB5, //also used in REFR objects, ref to player
+	TesObjectArmo = 0x27,
+	TesObjectBook = 0x28,
+	TesObjectCont = 0x29,
+	TesObjectLigh = 0x2C,
+	TesObjectMisc = 0x2D,
+	CurrencyObject = 0x30,
+	TesObjectStat = 0x31,
+	BgsStaticCollection = 0x32,
+	BgsMovableStatic = 0x33,
+	TesFlora = 0x36,
+	TesObjectWeap = 0x38,
+	TesAmmo = 0x39,
+	TesNpc = 0x3a,
+	TesKey = 0x3d,
+	AlchemyItem = 0x3e,
+	TesUtilityItem = 0x3f,
+	BgsIdleMarker = 0x40,
+	BgsNote = 0x41,
+	BgsBendableSpline = 0x44,
+	TesLevItem = 0x49,
+	TesObjectRefr = 0x51,  //used in REFR objects, ref to item
+	TesActor = 0x52, //used in REFR objects, ref to npc
+	PlayerCharacter = 0xB6, //also used in REFR objects, ref to player
 
 	Undefined = UINT8_MAX,
 };

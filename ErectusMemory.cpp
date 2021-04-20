@@ -1002,7 +1002,7 @@ bool ErectusMemory::MovePlayer()
 void ErectusMemory::Noclip(const bool enabled)
 {
 	BYTE noclipOnA[] = { 0x0F, 0x1F, 0x44, 0x00, 0x00 };
-	BYTE noclipOffA[] = { 0xE8, 0xC3, 0xC1, 0xFE, 0xFF };
+	BYTE noclipOffA[] = { 0xE8, 0xE3, 0xC1, 0xFE, 0xFF };
 	BYTE noclipCheckA[sizeof noclipOffA];
 
 	BYTE noclipOnB[] = { 0x0F, 0x1F, 0x40, 0x00 };
@@ -1010,11 +1010,11 @@ void ErectusMemory::Noclip(const bool enabled)
 	BYTE noclipCheckB[sizeof noclipOffB];
 
 	BYTE noclipOnC[] = { 0x0F, 0x1F, 0x44, 0x00, 0x00 };
-	BYTE noclipOffC[] = { 0xE8, 0xCA, 0xDB, 0x37, 0x01 };
+	BYTE noclipOffC[] = { 0xE8, 0xEA, 0x59, 0x34, 0x01 };
 	BYTE noclipCheckC[sizeof noclipOffC];
 
 	BYTE noclipOnD[] = { 0x66, 0x0F, 0x1F, 0x44, 0x00, 0x00 };
-	BYTE noclipOffD[] = { 0xFF, 0x15, 0x21, 0x5B, 0x05, 0x02 };
+	BYTE noclipOffD[] = { 0xFF, 0x15, 0x49, 0x5B, 0xFF, 0x01 };
 	BYTE noclipCheckD[sizeof noclipOffD];
 
 	const auto noclipA = ErectusProcess::Rpm(ErectusProcess::exe + OFFSET_NOCLIP_A, &noclipCheckA, sizeof noclipCheckA);
@@ -1171,16 +1171,17 @@ bool ErectusMemory::SaveTeleportPosition(const int index)
 
 bool ErectusMemory::RequestTeleport(const int index)
 {
-	const auto cellPtr = GetPtr(Settings::teleporter.entries[index].cellFormId);
-	if (!Utils::Valid(cellPtr))
-		return false;
+	//const auto cellPtr = GetPtr(Settings::teleporter.entries[index].cellFormId);
+	//if (!Utils::Valid(cellPtr))
+	//	return false;
 
 	RequestTeleportMessage requestTeleportMessageData =
 	{
 		.vtable = ErectusProcess::exe + VTABLE_REQUESTTELEPORTTOLOCATIONMSG,
 		.position = Settings::teleporter.entries[index].position,
 		.rotation = Settings::teleporter.entries[index].rotation,
-		.cellPtr = cellPtr
+		.cellPtr = 0,//cellPtr,
+		.unk = 1
 	};
 	return MsgSender::Send(&requestTeleportMessageData, sizeof requestTeleportMessageData);
 }
@@ -1293,14 +1294,9 @@ bool ErectusMemory::SetClientState(const std::uintptr_t clientState)
 
 bool ErectusMemory::PositionSpoofing(const bool enabled)
 {
-	BYTE positionSpoofingOn[] = {
-		0xBA, 0x00, 0x00, 0x00, 0x00, 0xEB, 0x11, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC,
-		0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC
-	};
-	BYTE positionSpoofingOff[] = {
-		0xBA, 0x01, 0x00, 0xF8, 0xFF, 0x3B, 0xC2, 0x7C, 0x0F, 0x8B, 0xD0, 0x41, 0xB8, 0xFF, 0xFF, 0x07, 0x00, 0x41,
-		0x3B, 0xC0, 0x41, 0x0F, 0x4F, 0xD0
-	};
+	BYTE positionSpoofingOn[] = { 0xBA, 0x01, 0x00, 0xF8, 0xFF, 0xEB, 0x1D };
+	BYTE positionSpoofingOff[] = { 0xBA, 0x01, 0x00, 0xF8, 0xFF, 0xF3, 0x0F };
+
 	BYTE positionSpoofingCheck[sizeof positionSpoofingOff];
 
 	if (!ErectusProcess::Rpm(ErectusProcess::exe + OFFSET_SERVER_POSITION, &positionSpoofingCheck, sizeof positionSpoofingCheck))
@@ -1340,14 +1336,24 @@ bool ErectusMemory::PositionSpoofing(const bool enabled)
 
 std::uint32_t ErectusMemory::GetEntityId(const TesObjectRefr& entityData)
 {
-	if (!(entityData.idValue[0] & 1))
-		return 0;
+	if (!(entityData.idValue[0] & 1)) return 0;
 
-	std::uint32_t v1;
-	memcpy(&v1, entityData.idValue, sizeof v1);
+	uint32_t v1;
+	memcpy(&v1, entityData.idValue, sizeof(v1));
 
-	const auto v2 = v1 >> 1;
-	return v2 | 0x100000;
+	uint32_t v2 = v1 >> 1;
+	uint32_t v3 = v2 + v2;
+	
+	uintptr_t id = 0;
+	if (!ErectusProcess::Rpm(ErectusProcess::exe + OFFSET_ENTITY_ID , &id, sizeof(id))) return 0;
+
+	uint32_t v4 = 0;
+	if (!ErectusProcess::Rpm(id + v3 * 0x8, &v4, sizeof(v4))) return 0;
+
+	uint32_t v5 = v4 & 0x7FF80000;
+	uint32_t v6 = v5 | v2;
+
+	return v6;
 }
 
 bool ErectusMemory::SendHitsToServer(Hits* hitsData, const size_t hitsDataSize)
@@ -1451,26 +1457,36 @@ bool ErectusMemory::SendDamage(const std::uintptr_t targetPtr, const std::uint32
 
 	for (BYTE i = 0; i < count; i++)
 	{
-		hitsData[i].valueA = localPlayerId;
-		hitsData[i].valueB = targetId;
-		hitsData[i].valueC = 0;
+		//hitsData[i].valueB = localPlayerId;
+		//hitsData[i].valueA = targetId;
+		//hitsData[i].valueC = 0;
+		//hitsData[i].initializationType = 0x3;
+		//hitsData[i].uiWeaponServerId = weaponId;
+		//hitsData[i].limbEnum = 0xFFFFFFFF;
+		//hitsData[i].hitEffectId = 0;
+		//hitsData[i].uEquipIndex = 0;
+		//hitsData[i].uAckIndex = *shotsHit;
+		//hitsData[i].uFireId = *shotsFired;
+		//hitsData[i].bPredictedKill = 0;
+		//hitsData[i].padding0023 = 0;
+		//hitsData[i].explosionLocationX = 0.0f;
+		//hitsData[i].explosionLocationY = 0.0f;
+		//hitsData[i].explosionLocationZ = 0.0f;
+		//hitsData[i].fProjectilePower = 1.0f;
+		//hitsData[i].bVatsAttack = 0;
+		//hitsData[i].bVatsCritical = 0;
+		//hitsData[i].bTargetWasDead = 0;
+		//hitsData[i].padding0037 = 0;
+
+		hitsData[i].target = targetId;
+		hitsData[i].source = localPlayerId;
 		hitsData[i].initializationType = 0x3;
 		hitsData[i].uiWeaponServerId = weaponId;
 		hitsData[i].limbEnum = 0xFFFFFFFF;
-		hitsData[i].hitEffectId = 0;
-		hitsData[i].uEquipIndex = 0;
 		hitsData[i].uAckIndex = *shotsHit;
 		hitsData[i].uFireId = *shotsFired;
-		hitsData[i].bPredictedKill = 0;
-		hitsData[i].padding0023 = 0;
-		hitsData[i].explosionLocationX = 0.0f;
-		hitsData[i].explosionLocationY = 0.0f;
-		hitsData[i].explosionLocationZ = 0.0f;
 		hitsData[i].fProjectilePower = 1.0f;
-		hitsData[i].bVatsAttack = 0;
-		hitsData[i].bVatsCritical = 0;
-		hitsData[i].bTargetWasDead = 0;
-		hitsData[i].padding0037 = 0;
+
 
 		if (Settings::targetting.sendDamageMax < 10)
 		{
@@ -1838,4 +1854,16 @@ bool ErectusMemory::VtableSwap(const std::uintptr_t dst, std::uintptr_t src)
 		return false;
 
 	return result;
+}
+
+bool ErectusMemory::PatchIntegrityCheck()
+{
+	char check = 0;
+	return ErectusProcess::Wpm(ErectusProcess::exe + OFFSET_INTEGRITYCHECK, &check, sizeof check);
+}
+
+bool ErectusMemory::PatchDetectFlag()
+{
+	BYTE patch[] = { 0x31, 0xC0, 0x90};
+	return ErectusProcess::Wpm(ErectusProcess::exe + OFFSET_FLAGDETECTED, &patch, sizeof patch);
 }

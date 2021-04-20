@@ -1,6 +1,7 @@
 #pragma once
 #include <cmath>
 #include <cstdint>
+#include <random>
 
 class Vector2
 {
@@ -133,6 +134,8 @@ public:
 
 	static float GetDegrees(const Vector3& src, const Vector3& forward, const Vector3& origin);
 	static Vector3 ProjectView(const Vector3& forward, const Vector3& origin, float distance);
+
+	static std::string RandomString(std::size_t length);
 
 private:
 	static float RadiansToDegrees(float radians);

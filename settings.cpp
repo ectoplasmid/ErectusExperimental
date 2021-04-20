@@ -438,7 +438,7 @@ void Settings::GetLocalPlayerSettings()
 	GetBool("LocalPlayerSettings", "PositionSpoofingEnabled", localPlayer.positionSpoofingEnabled, localPlayer.positionSpoofingEnabled);
 	GetSliderInt("LocalPlayerSettings", "PositionSpoofingHeight", localPlayer.positionSpoofingHeight, localPlayer.positionSpoofingHeight, -524287, 524287);
 	GetBool("LocalPlayerSettings", "NoclipEnabled", localPlayer.noclipEnabled, localPlayer.noclipEnabled);
-	GetSliderFloat("LocalPlayerSettings", "NoclipSpeed", localPlayer.noclipSpeed, localPlayer.noclipSpeed, 0.0f, 2.0f);
+	GetSliderFloat("LocalPlayerSettings", "NoclipSpeed", localPlayer.noclipSpeed, localPlayer.noclipSpeed, 0.0f, 1.0f);
 	GetBool("LocalPlayerSettings", "ClientState", localPlayer.clientState, localPlayer.clientState);
 	GetBool("LocalPlayerSettings", "AutomaticClientState", localPlayer.automaticClientState, localPlayer.automaticClientState);
 	GetBool("LocalPlayerSettings", "FreezeApEnabled", localPlayer.freezeApEnabled, localPlayer.freezeApEnabled);
@@ -464,7 +464,7 @@ void Settings::SetLocalPlayerSettings()
 	SetBool("LocalPlayerSettings", "PositionSpoofingEnabled", localPlayer.positionSpoofingEnabled, localPlayer.positionSpoofingEnabled);
 	SetSliderInt("LocalPlayerSettings", "PositionSpoofingHeight", localPlayer.positionSpoofingHeight, localPlayer.positionSpoofingHeight, -524287, 524287);
 	SetBool("LocalPlayerSettings", "NoclipEnabled", localPlayer.noclipEnabled, localPlayer.noclipEnabled);
-	SetSliderFloat("LocalPlayerSettings", "NoclipSpeed", localPlayer.noclipSpeed, localPlayer.noclipSpeed, 0.0f, 2.0f);
+	SetSliderFloat("LocalPlayerSettings", "NoclipSpeed", localPlayer.noclipSpeed, localPlayer.noclipSpeed, 0.0f, 1.0f);
 	SetBool("LocalPlayerSettings", "ClientState", localPlayer.clientState, localPlayer.clientState);
 	SetBool("LocalPlayerSettings", "AutomaticClientState", localPlayer.automaticClientState, localPlayer.automaticClientState);
 	SetBool("LocalPlayerSettings", "FreezeApEnabled", localPlayer.freezeApEnabled, localPlayer.freezeApEnabled);

@@ -521,7 +521,7 @@ void Gui::Menu()
 	if (gApp->GetMode() == App::Mode::Standalone)
 		windowFlags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove;
 
-	if (ImGui::Begin(OVERLAY_WINDOW_NAME, nullptr, windowFlags))
+	if (ImGui::Begin("Main", nullptr, windowFlags))
 	{
 		MenuBar();
 
@@ -547,7 +547,7 @@ void Gui::ProcessMenu()
 	ImGui::SetWindowSize(ImVec2(384, 224));
 
 	ImGui::SetNextItemWidth(-16.f);
-	auto processText = ErectusProcess::pid ? "Fallout76.exe - " + std::to_string(ErectusProcess::pid) : "No  process selected.";
+	auto processText = ErectusProcess::pid ? "Fallout76.exe - " + std::to_string(ErectusProcess::pid) : "No process selected.";
 	if (ImGui::BeginCombo("###ProcessList", processText.c_str()))
 	{
 		for (auto item : ErectusProcess::GetProcesses())
@@ -1345,7 +1345,7 @@ void Gui::OverlayMenuTabPlayer()
 			LargeButtonToggle("Noclip (CTRL+Y)###NoclipEnabled", Settings::localPlayer.noclipEnabled);
 			ImGui::NextColumn();
 			ImGui::SetNextItemWidth(-FLT_MIN);
-			ImGui::SliderFloat("###NoclipSpeed", &Settings::localPlayer.noclipSpeed, 0.0f, 2.0f, "Speed: %.5f");
+			ImGui::SliderFloat("###NoclipSpeed", &Settings::localPlayer.noclipSpeed, 0.0f, 1.0f, "Speed: %.5f");
 			ImGui::NextColumn();
 
 			LargeButtonToggle("Client State", Settings::localPlayer.clientState);

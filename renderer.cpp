@@ -135,11 +135,20 @@ void Renderer::ResetDevice()
 void Renderer::LoadFonts()
 {
 	auto io = ImGui::GetIO();
-	io.Fonts->AddFontDefault();
-#pragma warning(suppress : 4996)
-	io.Fonts->AddFontFromFileTTF(format(FMT_STRING("{}\\Fonts\\arialbd.ttf"), std::getenv("WINDIR")).c_str(), 13.f);
-	ImGui_ImplDX9_CreateDeviceObjects();
 
+	static const ImWchar rangesAll[] = { 0x0020, 0xFFEF, 0, };
+
+	auto fontCfg = ImFontConfig::ImFontConfig();
+	fontCfg.OversampleH = fontCfg.OversampleV = 1;
+	fontCfg.PixelSnapH = true;
+	fontCfg.GlyphRanges = &rangesAll[0];
+
+	io.Fonts->AddFontDefault(&fontCfg);
+
+#pragma warning(suppress : 4996)
+	io.Fonts->AddFontFromFileTTF(format(FMT_STRING("{}\\Fonts\\arialbd.ttf"), std::getenv("WINDIR")).c_str(), 13.f, &fontCfg);
+
+	ImGui_ImplDX9_CreateDeviceObjects();
 }
 
 void Renderer::Resize(const unsigned width, const unsigned height)
