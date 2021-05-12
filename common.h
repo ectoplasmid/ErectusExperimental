@@ -4,62 +4,49 @@
 
 #include <Windows.h>
 
-//FileVersion = 1.5.1.26
-//just rpm
-constexpr auto OFFSET_LOCAL_PLAYER = 0x05489f78UL;//
-constexpr auto OFFSET_ENTITY_LIST = 0x0525ED98UL;//
-constexpr auto OFFSET_MAIN = 0x054EC050UL;//
-constexpr auto OFFSET_CAMERA = 0x0647AED0UL;//
-constexpr auto OFFSET_GET_PTR_A1 = 0x05265E78UL;//
-constexpr auto OFFSET_GET_PTR_A2 = 0x3DB6C20UL;//  
-constexpr auto OFFSET_NUKE_CODE = 0x0539F368UL;// 
-constexpr auto OFFSET_MAIN_WORLDSPACE = 0x539DE60UL;//
-constexpr auto OFFSET_ENTITY_ID = 0x05255380UL;// 
 
-//wpm
+//Offsets
+#define OFFSET_MAIN_WORLDSPACE                          0x5475470UL//1.5.2.31
+#define OFFSET_LOCAL_PLAYER                             0x05568A40UL//1.5.2.31
+#define OFFSET_ENTITY_LIST                              0x05334678UL//1.5.2.31
+#define OFFSET_ENTITY_ID								0x5329790UL//1.5.2.31
+#define OFFSET_MAIN                                     0x055C9AD8UL//1.5.2.31
+#define OFFSET_CAMERA                                   0x0655D4A0UL//1.5.2.31
+#define OFFSET_CHAR_CONTROLLER                          0x057A964CUL//1.5.2.31
+#define OFFSET_GET_PTR_A1                               0x0533B168UL//1.5.2.31
+#define OFFSET_MESSAGE_SENDER                           0x0165BF90UL//1.5.2.31
+#define OFFSET_OPK                                      0x02B19D64UL//1.5.2.31
+#define OFFSET_FAKE_MESSAGE                             0x435DE939UL//1.5.2.31
+#define OFFSET_DATA_HANDLER                             0x0532FEB0UL//1.5.2.31
+#define OFFSET_INFINITE_AMMO                            0x3E9775D6UL//1.5.2.31
+#define OFFSET_REDIRECTION                              0x3F4B7F2CUL//1.5.2.31
+#define OFFSET_NOCLIP_A                                 0x4061C068UL//1.5.2.31
+#define OFFSET_NOCLIP_B                                 0x4061C020UL//1.5.2.31
+#define OFFSET_NOCLIP_C                                 0x4061C020UL//1.5.2.31
+#define OFFSET_NOCLIP_D                                 0x4061BFF0UL//1.5.2.31
+#define OFFSET_AV_REGEN                                 0x3F33E8CFUL//1.5.2.31 Stands for Actor Value AP Regen
+#define OFFSET_SERVER_POSITION                          0x3F15A288UL//1.5.2.31
+#define OFFSET_NPC_LIST                                 0x0532F870UL//1.5.2.31
+#define OFFSET_NPC_PTR_FUNCTION                         0x005A5C20UL//1.5.2.31
+#define OFFSET_MELEE_ATTACK                             0x018383D0UL//1.5.2.31
+#define OFFSET_ACTOR_VALUE                              0x3F33E510UL//1.5.2.31
+#define OFFSET_NUKE_CODE								0x054769B8UL//1.5.2.31
+
+//vtables																  
+#define VTABLE_REQUESTACTIVATEREFMSG                    0x03CB6298UL//1.5.2.31
+#define VTABLE_REQUESTTRANSFERITEMMSG                   0x03CC1138UL//1.5.2.31
+#define VTABLE_CLIENTSTATEMSG                           0x03CB9D80UL//1.5.2.31
+#define VTABLE_REQUESTHITSONACTORS                      0x03CB6190UL//1.5.2.31
+#define VTABLE_REQUESTTELEPORTTOLOCATIONMSG				0x3CBA1A0UL//1.5.2.31
+#define VTABLE_REQUESTINVENTORYSYNCMSG					0x3B86930UL//1.5.2.31
 
 //anticheat
-constexpr auto OFFSET_INTEGRITYCHECK = 0x664C7A0UL;
-constexpr auto OFFSET_FLAGDETECTED = 0x5A50E6UL;
+#define OFFSET_INTEGRITYCHECK							0x672FBE0UL//1.5.2.31
+#define OFFSET_FLAGDETECTED								0x5DA676UL//1.5.2.31
+#define OFFSET_REDIRECTION_JMP							0x19A7DCBUL//1.5.2.31
 
 //chargen
-constexpr auto OFFSET_CHARGEN = 0x548C840UL + 0x100;//
-
-//dmg redirection
-constexpr auto OFFSET_REDIRECTION = 0x194027BUL; //
-constexpr auto OFFSET_REDIRECTION_JMP = 0x194010BUL; //
-
-//stats editor 
-constexpr auto OFFSET_ACTOR_VALUE = 0x017C8770UL;//
-constexpr auto OFFSET_AV_REGEN = 0x017C8B2FUL;//
-constexpr auto OFFSET_SERVER_POSITION = 0x015E0075UL;//
-
-//opk
-constexpr auto OFFSET_OPK = 0x2AB1EFDUL;//
-
-//noclip
-constexpr auto OFFSET_CHAR_CONTROLLER = 0x56C84C0UL;//
-constexpr auto OFFSET_NOCLIP_A = 0x2AA46C8UL; // 
-constexpr auto OFFSET_NOCLIP_B = 0x2AA4680UL; // 
-constexpr auto OFFSET_NOCLIP_C = 0x17458F1UL; // 
-constexpr auto OFFSET_NOCLIP_D = 0x1745921UL; //
-
-//weapon editor
-constexpr auto OFFSET_DATA_HANDLER = 0x525AF98UL; //
-constexpr auto OFFSET_INFINITE_AMMO = 0x00E1CAD0UL; //48 83 EC 38 48 8D 44 24 50 C7 44 24 50 00 00 00 00
-
-//remote threads / message sending
-constexpr auto OFFSET_MELEE_ATTACK = 0x17D24E0UL;//
-constexpr auto OFFSET_MESSAGE_SENDER = 0x15F18C0UL;//
-constexpr auto OFFSET_FAKE_MESSAGE = 0x1579180UL;//
-
-//vtables
-constexpr auto VTABLE_REQUESTACTIVATEREFMSG = 0x3C11E60UL;//
-constexpr auto VTABLE_REQUESTTRANSFERITEMMSG = 0x3C202D0UL;//
-constexpr auto VTABLE_REQUESTTELEPORTTOLOCATIONMSG = 0x3C15D10UL;//
-constexpr auto VTABLE_CLIENTSTATEMSG = 0x3C158F0UL;//
-constexpr auto VTABLE_REQUESTHITSONACTORS = 0x3C11CA8UL;//
-constexpr auto VTABLE_REQUESTINVENTORYSYNCMSG = 0x3AE93E0UL;//
+constexpr auto OFFSET_CHARGEN = 0x548C840UL + 0x100; //USELESS
 
 enum class HotKey : int
 {
