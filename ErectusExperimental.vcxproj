@@ -170,6 +170,7 @@
   <ItemGroup>
     <ClInclude Include="app.h" />
     <ClInclude Include="common.h" />
+    <ClInclude Include="CrcCalculator.h" />
     <ClInclude Include="dependencies\fmt\fmt\core.h" />
     <ClInclude Include="dependencies\fmt\fmt\format-inl.h" />
     <ClInclude Include="dependencies\fmt\fmt\format.h" />
