@@ -30,7 +30,6 @@
 #define OFFSET_NPC_PTR_FUNCTION                         0x005A5C20UL//1.5.2.31
 #define OFFSET_MELEE_ATTACK                             0x018383D0UL//1.5.2.31
 #define OFFSET_ACTOR_VALUE                              0x3F33E510UL//1.5.2.31
-#define OFFSET_NUKE_CODE								0x054769B8UL//1.5.2.31
 
 //vtables																  
 #define VTABLE_REQUESTACTIVATEREFMSG                    0x03CB6298UL//1.5.2.31
@@ -44,9 +43,6 @@
 #define OFFSET_INTEGRITYCHECK							0x672FBE0UL//1.5.2.31
 #define OFFSET_FLAGDETECTED								0x5DA676UL//1.5.2.31
 #define OFFSET_REDIRECTION_JMP							0x19A7DCBUL//1.5.2.31
-
-//chargen
-constexpr auto OFFSET_CHARGEN = 0x548C840UL + 0x100; //USELESS
 
 enum class HotKey : int
 {

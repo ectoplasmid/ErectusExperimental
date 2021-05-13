@@ -209,8 +209,7 @@ struct EspSettings
 	struct InfoBoxSettings
 	{
 		bool drawPlayerInfo = false;
-		bool drawPositionSpoofingStatus = false;
-		bool drawNukeCodes = false;
+		bool drawPositionSpoofingStatus = false;		
 		bool drawFps = false;
 	} infobox;
 
@@ -337,25 +336,12 @@ public:
 	} entries[16];
 };
 
-class NukeCodeSettings
-{
-public:
-	bool automaticNukeCodes;
-};
 class MeleeSettings
 {
 public:
 	bool enabled;
 	int speedMin;
 	int speedMax;
-};
-class ChargenSettings
-{
-public:
-	bool enabled;
-	float thin;
-	float muscular;
-	float large;
 };
 class MessageWriterSettings
 {
@@ -381,9 +367,7 @@ public:
 	inline static SwapperSettings swapper = {};
 	inline static TransferSettings customTransferSettings = {};
 	inline static TeleporterSettings teleporter = {};
-	inline static NukeCodeSettings customNukeCodeSettings = {};
-	inline static MeleeSettings melee = { false,10,20 };
-	inline static ChargenSettings characterEditor = { false,0.33f,0.33f,0.33f };
+	inline static MeleeSettings melee = { false,10,20 };	
 
 private:
 	static void GetItemSettings(const std::string& section, EspSettings::Items& value, const EspSettings::Items& deflt);
@@ -411,9 +395,7 @@ private:
 	static void GetTransferSettings();
 	static void SetTransferSettings();
 	static void GetTeleportSettings();
-	static void SetTeleportSettings();
-	static void GetNukeCodeSettings();
-	static void SetNukeCodeSettings();
+	static void SetTeleportSettings();	
 	static void GetLegendarySettings();
 	static void SetLegendarySettings();
 	static void GetFluxSettings();
@@ -421,9 +403,7 @@ private:
 	static void GetKnownRecipeSettings();
 	static void SetKnownRecipeSettings();
 	static void GetMeleeSettings();
-	static void SetMeleeSettings();
-	static void GetChargenSettings();
-	static void SetChargenSettings();
+	static void SetMeleeSettings();	
 	static void GetBitMsgWriterSettings();
 	static void SetBitMsgWriterSettings();
 

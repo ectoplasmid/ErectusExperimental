@@ -440,21 +440,6 @@ void Gui::RenderInfoBox()
 		infoTexts.emplace_back(featureText, featureState);
 	}
 
-	if (Settings::esp.infobox.drawNukeCodes)
-	{
-		featureText = format(FMT_STRING("{} - Alpha"), fmt::join(ErectusMemory::alphaCode, " "));
-		featureState = ErectusMemory::alphaCode == std::array<int, 8>{} ? false : true;
-		infoTexts.emplace_back(featureText, featureState);
-
-		featureText = format(FMT_STRING("{} - Bravo"), fmt::join(ErectusMemory::bravoCode, " "));
-		featureState = ErectusMemory::bravoCode == std::array<int, 8>{} ? false : true;
-		infoTexts.emplace_back(featureText, featureState);
-
-		featureText = format(FMT_STRING("{} - Charlie"), fmt::join(ErectusMemory::charlieCode, " "));
-		featureState = ErectusMemory::charlieCode == std::array<int, 8>{} ? false : true;
-		infoTexts.emplace_back(featureText, featureState);
-	}
-
 	if (Settings::esp.infobox.drawFps)
 	{
 		featureText = format(FMT_STRING("FPS: {:.2f}"), ImGui::GetIO().Framerate);
@@ -876,8 +861,7 @@ void Gui::OverlayMenuTabEsp()
 		if (ImGui::CollapsingHeader("InfoBox"))
 		{
 			LargeButtonToggle("Draw Local Player Data", Settings::esp.infobox.drawPlayerInfo);
-			LargeButtonToggle("Draw Position Status", Settings::esp.infobox.drawPositionSpoofingStatus);
-			LargeButtonToggle("Draw Nuke Codes", Settings::esp.infobox.drawNukeCodes);
+			LargeButtonToggle("Draw Position Status", Settings::esp.infobox.drawPositionSpoofingStatus);			
 			LargeButtonToggle("Draw Overlay FPS", Settings::esp.infobox.drawFps);
 		}
 
@@ -1406,19 +1390,6 @@ void Gui::OverlayMenuTabPlayer()
 
 			ImGui::Columns();
 		}
-
-		if (ImGui::CollapsingHeader("Character Settings"))
-		{
-			LargeButtonToggle("Character Appearance Editing Enabled###ChargenEditingEnabled", Settings::characterEditor.enabled);
-			ImGui::SetNextItemWidth(-FLT_MIN);
-			ImGui::SliderFloat("###ChargenThin", &Settings::characterEditor.thin, 0.0f, 1.0f, "Character Appearance (Thin): %f");
-
-			ImGui::SetNextItemWidth(-FLT_MIN);
-			ImGui::SliderFloat("###ChargenMuscular", &Settings::characterEditor.muscular, 0.0f, 1.0f, "Character Appearance (Muscular): %f");
-
-			ImGui::SetNextItemWidth(-FLT_MIN);
-			ImGui::SliderFloat("###ChargenLarge", &Settings::characterEditor.large, 0.0f, 1.0f, "Character Appearance (Large): %f");
-		}
 		ImGui::EndTabItem();
 	}
 }
@@ -1696,33 +1667,6 @@ void Gui::OverlayMenuTabUtilities()
 						nullptr, nullptr, "%08lX", ImGuiInputTextFlags_CharsHexadecimal);
 				}
 			}
-		}
-
-		if (ImGui::CollapsingHeader("Nuke Codes"))
-		{
-			ButtonToggle("Automatic Nuke Codes", Settings::customNukeCodeSettings.automaticNukeCodes);
-
-			ImGui::SameLine();
-
-			{
-				ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.0f, 1.0f, 0.0f, 0.3f));
-				ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.0f, 1.0f, 0.0f, 0.4f));
-				ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.0f, 1.0f, 0.0f, 0.5f));
-
-				if (ImGui::Button("Get Nuke Codes", ImVec2(-FLT_MIN, 0.0f)))
-					ErectusMemory::UpdateNukeCodes();
-
-				ImGui::PopStyleColor(3);
-			}
-
-			auto text = format(FMT_STRING("{} - Alpha"), fmt::join(ErectusMemory::alphaCode, " "));
-			ImGui::Text(text.c_str());
-
-			text = format(FMT_STRING("{} - Bravo"), fmt::join(ErectusMemory::bravoCode, " "));
-			ImGui::Text(text.c_str());
-
-			text = format(FMT_STRING("{} - Charlie"), fmt::join(ErectusMemory::charlieCode, " "));
-			ImGui::Text(text.c_str());
 		}
 		ImGui::EndTabItem();
 	}

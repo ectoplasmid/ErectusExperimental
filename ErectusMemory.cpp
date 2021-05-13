@@ -1091,13 +1091,6 @@ bool ErectusMemory::RequestTeleport(const int index)
 	return MsgSender::Send(&requestTeleportMessageData, sizeof requestTeleportMessageData);
 }
 
-void ErectusMemory::UpdateNukeCodes()
-{
-	alphaCode = GetNukeCode(0x000921AE);
-	bravoCode = GetNukeCode(0x00092213);
-	charlieCode = GetNukeCode(0x00092214);
-}
-
 bool ErectusMemory::FreezeActionPoints(std::uintptr_t& freezeApPage, bool& freezeApPageValid, const bool enabled)
 {
 	if (!freezeApPage && !Settings::localPlayer.freezeApEnabled)
@@ -1424,67 +1417,6 @@ bool ErectusMemory::SendDamage(const std::uintptr_t targetPtr, const std::uint32
 	return result;
 }
 
-std::uintptr_t ErectusMemory::GetNukeCodePtr(const std::uint32_t formId)
-{
-	ReferenceList questTextList{};
-	if (!ErectusProcess::Rpm(ErectusProcess::exe + OFFSET_NUKE_CODE, &questTextList, sizeof questTextList))
-		return 0;
-	if (!Utils::Valid(questTextList.arrayPtr) || !questTextList.arraySize || questTextList.arraySize > 0x7FFF)
-		return 0;
-
-	const auto questTextArray = std::make_unique<std::uintptr_t[]>(questTextList.arraySize);
-	if (!ErectusProcess::Rpm(questTextList.arrayPtr, questTextArray.get(), questTextList.arraySize * sizeof(std::uintptr_t)))
-		return 0;
-
-	std::uintptr_t nukeCodePtr = 0;
-	for (size_t i = 0; i < questTextList.arraySize; i++)
-	{
-		if (!Utils::Valid(questTextArray[i]))
-			continue;
-
-		BgsQuestText bgsQuestTextData{};
-		if (!ErectusProcess::Rpm(questTextArray[i], &bgsQuestTextData, sizeof bgsQuestTextData))
-			continue;
-		if (!Utils::Valid(bgsQuestTextData.formIdPtr) || !Utils::Valid(bgsQuestTextData.codePtr))
-			continue;
-
-		std::uint32_t formIdCheck;
-		if (!ErectusProcess::Rpm(bgsQuestTextData.formIdPtr + 0x4, &formIdCheck, sizeof formIdCheck))
-			continue;
-		if (formIdCheck != formId)
-			continue;
-
-		nukeCodePtr = bgsQuestTextData.codePtr;
-		break;
-	}
-
-	return nukeCodePtr;
-}
-
-std::array<int, 8> ErectusMemory::GetNukeCode(const std::uint32_t formId)
-{
-	std::array<int, 8> result = {};
- 
-	const auto nukeCodePtr = GetNukeCodePtr(formId);
-	if (!nukeCodePtr)
-		return result;
- 
-	float nukeCodeArray[24];
-	if (!ErectusProcess::Rpm(nukeCodePtr, &nukeCodeArray, sizeof nukeCodeArray))
-		return result;
- 
-	for (std::size_t i = 0; i < 8; i++)
-	{
-		if (nukeCodeArray[i * 3 + 1] < 0.0f || nukeCodeArray[i * 3 + 1] > 9.0f)
-		{
-			result = {};
-			return result;
-		}
-		result[i] = static_cast<int>(nukeCodeArray[i * 3 + 1]);
-	}
-	return result;
-}
-
 std::uint32_t ErectusMemory::GetFavoritedWeaponId(const BYTE favouriteIndex)
 {
 	if (Settings::targetting.favoriteIndex >= 12)
@@ -1702,47 +1634,6 @@ bool ErectusMemory::MeleeAttack()
 		return false;
 
 	ErectusProcess::FreeEx(allocAddress);
-	return true;
-}
-
-bool ErectusMemory::ChargenEditing()
-{
-	if (!Settings::characterEditor.enabled)
-		return false;
-
-	std::uintptr_t chargenPtr;
-	if (!ErectusProcess::Rpm(ErectusProcess::exe + OFFSET_CHARGEN, &chargenPtr, sizeof chargenPtr))
-		return false;
-	if (!Utils::Valid(chargenPtr))
-		return false;
-
-	Chargen chargenData{};
-	if (!ErectusProcess::Rpm(chargenPtr, &chargenData, sizeof chargenData))
-		return false;
-
-	auto shouldEdit = false;
-
-	if (chargenData.thin != Settings::characterEditor.thin)
-	{
-		chargenData.thin = Settings::characterEditor.thin;
-		shouldEdit = true;
-	}
-
-	if (chargenData.muscular != Settings::characterEditor.muscular)
-	{
-		chargenData.muscular = Settings::characterEditor.muscular;
-		shouldEdit = true;
-	}
-
-	if (chargenData.large != Settings::characterEditor.large)
-	{
-		chargenData.large = Settings::characterEditor.large;
-		shouldEdit = true;
-	}
-
-	if (shouldEdit)
-		return ErectusProcess::Wpm(chargenPtr, &chargenData, sizeof chargenData);
-
 	return true;
 }
 

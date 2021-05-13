@@ -579,15 +579,6 @@ void Settings::SetTeleportSettings()
 	}
 }
 
-void Settings::GetNukeCodeSettings()
-{
-	GetBool("NukeCodeSettings", "AutomaticNukeCodes", customNukeCodeSettings.automaticNukeCodes, false);
-}
-void Settings::SetNukeCodeSettings()
-{
-	SetBool("NukeCodeSettings", "AutomaticNukeCodes", customNukeCodeSettings.automaticNukeCodes, false);
-}
-
 void Settings::GetLegendarySettings()
 {
 	GetBool("LegendarySettings", "OverrideLivingOneStar", esp.npcsExt.overrideLivingOneStar, esp.npcsExt.overrideLivingOneStar);
@@ -666,21 +657,6 @@ void Settings::SetMeleeSettings()
 	SetSliderInt("MeleeSettings", "MeleeSpeedMax", melee.speedMax, 60, 1, 60);
 }
 
-void Settings::GetChargenSettings()
-{
-	GetBool("ChargenSettings", "ChargenEditingEnabled", characterEditor.enabled, false);
-	GetSliderFloat("ChargenSettings", "Thin", characterEditor.thin, 0, 0.0f, 1.0f);
-	GetSliderFloat("ChargenSettings", "Muscular", characterEditor.muscular, 0, 0.0f, 1.0f);
-	GetSliderFloat("ChargenSettings", "Large", characterEditor.large, 0, 0.0f, 1.0f);
-}
-void Settings::SetChargenSettings()
-{
-	SetBool("ChargenSettings", "ChargenEditingEnabled", characterEditor.enabled, false);
-	SetSliderFloat("ChargenSettings", "Thin", characterEditor.thin, 0, 0.0f, 1.0f);
-	SetSliderFloat("ChargenSettings", "Muscular", characterEditor.muscular, 0, 0.0f, 1.0f);
-	SetSliderFloat("ChargenSettings", "Large", characterEditor.large, 0, 0.0f, 1.0f);
-}
-
 void Settings::GetBitMsgWriterSettings()
 {
 	GetBool("BitMsgWriter", "AllowMessages", msgWriter.enabled, false);
@@ -694,16 +670,14 @@ void Settings::SetBitMsgWriterSettings()
 void Settings::GetInfoBoxSettings()
 {
 	GetBool("esp.infoBox", "drawPlayerInfo", esp.infobox.drawPlayerInfo, false);
-	GetBool("esp.infoBox", "drawPositionSpoofingStatus", esp.infobox.drawPositionSpoofingStatus, false);
-	GetBool("esp.infoBox", "drawNukeCodes", esp.infobox.drawNukeCodes, false);
+	GetBool("esp.infoBox", "drawPositionSpoofingStatus", esp.infobox.drawPositionSpoofingStatus, false);	
 	GetBool("esp.infoBox", "drawFPS", esp.infobox.drawFps, false);
 }
 
 void Settings::SetInfoBoxSettings()
 {
 	SetBool("esp.infoBox", "drawPlayerInfo", esp.infobox.drawPlayerInfo, false);
-	SetBool("esp.infoBox", "drawPositionSpoofingStatus", esp.infobox.drawPositionSpoofingStatus, false);
-	SetBool("esp.infoBox", "drawNukeCodes", esp.infobox.drawNukeCodes, false);
+	SetBool("esp.infoBox", "drawPositionSpoofingStatus", esp.infobox.drawPositionSpoofingStatus, false);	
 	SetBool("esp.infoBox", "drawFPS", esp.infobox.drawFps, false);
 }
 
@@ -781,10 +755,8 @@ void Settings::Read()
 	GetOpkSettings();
 	GetUtilitySettings();
 	GetTransferSettings();
-	GetTeleportSettings();
-	GetNukeCodeSettings();
-	GetMeleeSettings();
-	GetChargenSettings();
+	GetTeleportSettings();	
+	GetMeleeSettings();	
 	GetBitMsgWriterSettings();
 
 	file.write(ini, true);
@@ -803,10 +775,8 @@ void Settings::Write()
 	SetOpkSettings();
 	SetUtilitySettings();
 	SetTransferSettings();
-	SetTeleportSettings();
-	SetNukeCodeSettings();
+	SetTeleportSettings();	
 	SetMeleeSettings();
-	SetChargenSettings();
 	SetBitMsgWriterSettings();
 
 	file.write(ini, true);

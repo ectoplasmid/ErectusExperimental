@@ -139,7 +139,8 @@
 #  endif
 #endif
 
-// [[noreturn]] is disabled on MSVC and NVCC because of bogus unreachable code
+// [[noreturn]] is disabled on MSVC and NVCC because of bogus unreachable 
+// 
 // warnings.
 #if FMT_EXCEPTIONS && FMT_HAS_CPP_ATTRIBUTE(noreturn) && !FMT_MSC_VER && \
     !FMT_NVCC

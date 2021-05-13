@@ -270,15 +270,6 @@ public:
 }; //Size: 0x000D
 
 
-class Chargen
-{
-public:
-	char padding[0x28];
-	float thin;//0x28
-	float muscular;//0x2C
-	float large;//0x30
-};
-
 class CustomEntry
 {
 public:
@@ -420,12 +411,6 @@ public:
 	static char FavoriteIndex2Slot(BYTE favoriteIndex);
 	static bool SendDamage(std::uintptr_t targetPtr, std::uint32_t weaponId, BYTE* shotsHit, BYTE* shotsFired, BYTE count);
 
-	//nuke codes
-	static void UpdateNukeCodes();
-	inline static std::array<int, 8> alphaCode = { };
-	inline static std::array<int, 8> bravoCode = { };
-	inline static std::array<int, 8> charlieCode = { };
-
 	//teleporter
 	static bool SaveTeleportPosition(int index);
 	static bool RequestTeleport(int index);
@@ -454,8 +439,6 @@ public:
 	static bool PositionSpoofing(bool enabled);
 
 	static bool MeleeAttack();
-	static bool ChargenEditing();
-
 	static bool IsFloraHarvested(char harvestFlagA, char harvestFlagB);
 
 	static bool IsTargetValid(std::uintptr_t targetPtr);
@@ -478,9 +461,7 @@ public:
 	static bool CheckReferenceKeywordBook(const TesItem& referenceData, std::uint32_t formId);
 
 private:
-	[[nodiscard]] static std::uint32_t GenerateCrc32(std::uint32_t formId) noexcept;
-
-	static std::array<int, 8> GetNukeCode(std::uint32_t formId);
+	[[nodiscard]] static std::uint32_t GenerateCrc32(std::uint32_t formId) noexcept;	
 	static std::string GetPlayerName(const ClientAccount& clientAccountData);
 
 	static bool CheckWhitelistedFlux(const TesItem& referenceData);
@@ -491,8 +472,7 @@ private:
 	static bool MovePlayer();
 
 	static std::uint32_t GetEntityId(const TesObjectRefr& entityData);
-	static bool SendHitsToServer(Hits* hitsData, size_t hitsDataSize);
-	static std::uintptr_t GetNukeCodePtr(std::uint32_t formId);
+	static bool SendHitsToServer(Hits* hitsData, size_t hitsDataSize);	
 	static std::string GetInstancedItemName(std::uintptr_t displayPtr);
 
 	virtual void Dummy() = 0;

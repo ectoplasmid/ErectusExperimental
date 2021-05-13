@@ -213,15 +213,7 @@ DWORD WINAPI Threads::MultihackThread([[maybe_unused]] LPVOID lpParameter)
 		Opk::OnePositionKill(true);
 		Opk::SetOpkData(opkNpcsToggle);
 
-		if (Settings::customNukeCodeSettings.automaticNukeCodes)
-		{
-			if (loopCount % 300 == 0) { //every 300 loops
-				ErectusMemory::UpdateNukeCodes();
-			}
-		}
-
-		if (loopCount % 10 == 0) //every 10 loops
-			ErectusMemory::ChargenEditing();
+		if (loopCount % 10 == 0) //every 10 loops		
 
 		if (Settings::melee.enabled)
 		{
