@@ -12,33 +12,90 @@ enum class ActorState
 	Downed,
 };
 
-class ActorSnapshotComponent
+class PredictedHealth
+{
+public:
+	DWORD32 entityId; //0x0
+	DWORD32 Value; //0x4
+};
+
+class ActorSnapshotFurnitureData
+{
+public:
+	BYTE FurnitureMarkerIndex; //0x0
+	BYTE FurnitureEntryIndex; //0x1
+	BYTE isInteractingWithFurniture; //x02
+	BYTE isExitingFurniture; //0x3
+	BYTE CullWhileNotInFurniture; //0x4
+	BYTE padding0x5[3]; //0x5
+	DWORD32 DesiredFurnitureID_; //0x8
+	DWORD32 OldDesiredFurnitureID; //0xC
+	BYTE DesiredFurnitureIDChanged; //0x10
+	BYTE field_F9[3]; //0x11
+	DWORD32 OccupiedFurnitureID; //0x14
+};
+
+class ActorSnapshotComponentBase
 {
 public:
 	//ActorCoreSnapshotComponent
-	std::uintptr_t actorCorevtable; //0x0
-	char actorCorePadding0008[0x98];
+	DWORD64 actorCorevtable; //0x0
+	BYTE actorCorePadding0008[0x98];
 	//ActorServerAuthSnapshotData    // 0x38 isInvulnerable, 0x3C isProtected, 0x3D IsPlayerProtected, 0x130 hostileState, 0x138 reconScopeTargetState
-	std::uintptr_t vtable; //0xA0
-	char padding0008[0x30];
-	char isInvulnerable; //0x38
-	char unk0039; //0x39
-	char unk003A; //0x3A
-	char isEssential; //0x3B
-	char isProtected; //0x3C
-	char isPlayerProtected; //0x3D
-	char padding003C[0x3A];
-	float maxHealth; //0x78
-	float modifiedHealth; //0x7C
-	char padding0078[0x4];
-	float lostHealth; //0x84
-	char padding0080[0xA0];
-	std::uint8_t epicRank; //0x128
-	char padding0121[0xF];
-	std::uint64_t hostileState; //0x138
-	std::uint64_t reconScopeTargetState; //0x140
 };
 
+class ActorSnapshotComponent : public ActorSnapshotComponentBase
+{
+public:
+	DWORD64 vtable; //0x00
+	DWORD64 builtByID; //0x08
+	BYTE keywordFlags[0x10]; //0x10
+	DWORD32 actorLifeState; //0x20
+	float vatsCriticalCharge; //0x24
+	DWORD32 vatsCriticalCount; //0x28
+	BYTE Disabled; // 0x2C
+	BYTE DisabledPrev; // 0x2D
+	BYTE DisabledChanged; // 0x2E
+	BYTE DeathFade; // 0x2F
+	BYTE DisableFade; // 0x30
+	BYTE Powered; //0x31
+	BYTE InCombat; //0x32
+	BYTE ignoreCombat; //0x33
+	BYTE isEaten; //0x34
+	BYTE hasDeferredLegendaryDrop; //0x35
+	BYTE processMe; //0x36
+	BYTE isBoss; //0x37
+	BYTE isInvulnerable; //0x38
+	BYTE isGhost; //0x39
+	BYTE isGhostForTeammate; //0x3A
+	BYTE isEssential; //0x3B
+	BYTE isProtected; //0x3C
+	BYTE isPlayerProtected; //0x3D
+	WORD normalizedMaxLevel; //0x3E
+	WORD normalizedMinLevel; //0x40
+	BYTE normalizedLevelOffset; //0x42
+	BYTE padding0x43[0x35];
+	float maxHealth; //0x78
+	float modifiedHealth; //0x7C
+	float healthValue2; //0x80
+	float lostHealth; //0x84
+	BYTE padding0x88[0x1C]; //0x88-0xA3
+	PredictedHealth PredictedHealthValues[8]; //0xA4 - 0xE3
+	DWORD32 padding0xE4; //0xE4
+	ActorSnapshotFurnitureData CurrentFurnitureData; //0xE8
+	ActorSnapshotFurnitureData PreviousFurnitureData; //0x100
+	BYTE FurnitureDataChanged; //0x118
+	BYTE padding0x119[7]; //0x119
+	DWORD64 ActorRace; //0x120
+	BYTE epicRank; //0x128
+	BYTE padding0129[7]; //0x129
+	DWORD64 VoiceType; //0x130
+	DWORD64 hostileState; //0x138
+	DWORD64 reconScopeTargetState; //0x140
+	DWORD32 QuestGhostedInstanceIds[2]; //0x148,0x14C
+	DWORD32 TeleportFadeStateEnum; //0x150
+	BYTE padding0x153[4]; //0x154
+};
 class Inventory
 {
 public:
