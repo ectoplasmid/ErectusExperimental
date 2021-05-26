@@ -4,38 +4,38 @@
 
 #include <Windows.h>
 
+#define OFFSET_MAIN_WORLDSPACE                          0x056CEA30UL//1.5.3.9
+#define OFFSET_LOCAL_PLAYER                             0x057C16E8UL//1.5.3.9
+#define OFFSET_ENTITY_LIST                              0x0558ED18UL//1.5.3.9
+#define OFFSET_MAIN                                     0x058225D8UL//1.5.3.9
+#define OFFSET_CAMERA                                   0x067B8670UL//1.5.3.9
+#define OFFSET_CHAR_CONTROLLER                          0x05A053C4UL//1.5.3.9
+#define OFFSET_GET_PTR_A1                               0x055955E8UL//1.5.3.9
+#define OFFSET_MESSAGE_SENDER                           0x016C3420UL//1.5.3.9
+#define OFFSET_OPK                                      0x02CFE4C4UL//1.5.3.9
+#define OFFSET_FAKE_MESSAGE                             0x43645AB9UL//1.5.3.9
+#define OFFSET_DATA_HANDLER                             0x0558AD18UL//1.5.3.9
+#define OFFSET_INFINITE_AMMO                            0xAE51E556UL//1.5.3.9
+#define OFFSET_REDIRECTION                              0xAF05F8BCUL//1.5.3.9
+#define OFFSET_REDIRECTION_JMP                          0x00000000UL//1.5.3.9
+#define OFFSET_NOCLIP_A                                 0xB0340858UL//1.5.3.9
+#define OFFSET_NOCLIP_B                                 0xB0340810UL//1.5.3.9
+#define OFFSET_NOCLIP_C                                 0xB0340810UL//1.5.3.9
+#define OFFSET_NOCLIP_D                                 0xB03407E0UL//1.5.3.9
+#define OFFSET_AV_REGEN                                 0xAEEE615FUL//1.5.3.9 Stands for Actor Value AP Regen
+#define OFFSET_SERVER_POSITION                          0xAED01718UL//1.5.3.9
+#define OFFSET_NPC_LIST                                 0x0558A528UL//1.5.3.9
+#define OFFSET_NPC_PTR_FUNCTION                         0x00608000UL//1.5.3.9
+#define OFFSET_MELEE_ATTACK                             0x0189FC60UL//1.5.3.9
+#define OFFSET_CHARGEN                                  0x057C4250UL//1.5.3.9
+#define OFFSET_ACTOR_VALUE                              0xAEEE5DA0UL//1.5.3.9
 
-//Offsets
-#define OFFSET_MAIN_WORLDSPACE                          0x5475470UL//1.5.2.31
-#define OFFSET_LOCAL_PLAYER                             0x05568A40UL//1.5.2.31
-#define OFFSET_ENTITY_LIST                              0x05334678UL//1.5.2.31
-#define OFFSET_ENTITY_ID								0x5329790UL//1.5.2.31
-#define OFFSET_MAIN                                     0x055C9AD8UL//1.5.2.31
-#define OFFSET_CAMERA                                   0x0655D4A0UL//1.5.2.31
-#define OFFSET_CHAR_CONTROLLER                          0x057A964CUL//1.5.2.31
-#define OFFSET_GET_PTR_A1                               0x0533B168UL//1.5.2.31
-#define OFFSET_MESSAGE_SENDER                           0x0165BF90UL//1.5.2.31
-#define OFFSET_OPK                                      0x02B19D64UL//1.5.2.31
-#define OFFSET_FAKE_MESSAGE                             0x435DE939UL//1.5.2.31
-#define OFFSET_DATA_HANDLER                             0x0532FEB0UL//1.5.2.31
-#define OFFSET_INFINITE_AMMO                            0x3E9775D6UL//1.5.2.31
-#define OFFSET_REDIRECTION                              0x3F4B7F2CUL//1.5.2.31
-#define OFFSET_NOCLIP_A                                 0x4061C068UL//1.5.2.31
-#define OFFSET_NOCLIP_B                                 0x4061C020UL//1.5.2.31
-#define OFFSET_NOCLIP_C                                 0x4061C020UL//1.5.2.31
-#define OFFSET_NOCLIP_D                                 0x4061BFF0UL//1.5.2.31
-#define OFFSET_AV_REGEN                                 0x3F33E8CFUL//1.5.2.31 Stands for Actor Value AP Regen
-#define OFFSET_SERVER_POSITION                          0x3F15A288UL//1.5.2.31
-#define OFFSET_NPC_LIST                                 0x0532F870UL//1.5.2.31
-#define OFFSET_NPC_PTR_FUNCTION                         0x005A5C20UL//1.5.2.31
-#define OFFSET_MELEE_ATTACK                             0x018383D0UL//1.5.2.31
-#define OFFSET_ACTOR_VALUE                              0x3F33E510UL//1.5.2.31
+//vtables
+#define VTABLE_REQUESTACTIVATEREFMSG                    0x03E7BE18UL//1.5.3.9
+#define VTABLE_REQUESTTRANSFERITEMMSG                   0x03E86D48UL//1.5.3.9
+#define VTABLE_CLIENTSTATEMSG                           0x03E7F900UL//1.5.3.9
+#define VTABLE_REQUESTHITSONACTORS                      0x03E7BD10UL//1.5.3.9
 
-//vtables																  
-#define VTABLE_REQUESTACTIVATEREFMSG                    0x03CB6298UL//1.5.2.31
-#define VTABLE_REQUESTTRANSFERITEMMSG                   0x03CC1138UL//1.5.2.31
-#define VTABLE_CLIENTSTATEMSG                           0x03CB9D80UL//1.5.2.31
-#define VTABLE_REQUESTHITSONACTORS                      0x03CB6190UL//1.5.2.31
 #define VTABLE_REQUESTTELEPORTTOLOCATIONMSG				0x3CBA1A0UL//1.5.2.31
 #define VTABLE_REQUESTINVENTORYSYNCMSG					0x3B86930UL//1.5.2.31
 
@@ -298,12 +298,9 @@ enum class FormType : std::uint8_t
 	BgsNote = 0x40,
 	BgsBendableSpline = 0x43,
 	TesLevItem = 0x48,
-	TesObjectRefr = 0x50,
-	//used in REFR objects, ref to item
-	TesActor = 0x51,
-	//used in REFR objects, ref to npc
-	PlayerCharacter = 0xB5,
-	//also used in REFR objects, ref to player
+	TesObjectRefr = 0x50,  //used in REFR objects, ref to item
+	TesActor = 0x51, //used in REFR objects, ref to npc
+	PlayerCharacter = 0xB5, //also used in REFR objects, ref to player
 
 	Undefined = UINT8_MAX,
 };
